@@ -13,9 +13,16 @@ class CustomHoursClock {
         this.setupCollapsibleSections();
         
         // イベントリスナーの設定
-        this.customHoursInput.addEventListener('change', () => {
-            this.updateConversionFactor();
+        this.customHoursInput.addEventListener('input', () => {
+            this.updateCustomTimeTitle(); // 表示の即時更新
         });
+
+        this.customHoursInput.addEventListener('change', () => {
+            this.updateConversionFactor(); // 値の確定時に時間変換係数を更新
+        });
+
+        // 初期表示を設定
+        this.updateCustomTimeTitle();
 
         this.startTimeInput.addEventListener('change', () => {
             this.updateTimeRange();
@@ -127,6 +134,14 @@ class CustomHoursClock {
         });
     }
 
+    updateCustomTimeTitle() {
+        const titleElement = document.getElementById('custom-time-title');
+        if (titleElement) {
+            const hours = parseFloat(this.customHoursInput.value);
+            titleElement.textContent = `${hours}時間表示`;
+        }
+    }
+
     setupCollapsibleSections() {
         // 全ての折りたたみセクションを取得
         const sections = document.querySelectorAll('.collapsible-section');
@@ -135,24 +150,28 @@ class CustomHoursClock {
             const header = section.querySelector('.section-header');
             const content = section.querySelector('.section-content');
             const button = section.querySelector('.toggle-button');
+            const title = section.querySelector('h2').textContent;
             
             // ヘッダーまたはボタンクリックで開閉
             const toggleSection = () => {
                 content.classList.toggle('collapsed');
                 button.classList.toggle('collapsed');
-                
-                // LocalStorageに状態を保存
-                const isCollapsed = content.classList.contains('collapsed');
-                localStorage.setItem(`section-${section.querySelector('h2').textContent}`, isCollapsed);
+                localStorage.setItem(`section-${title}`, content.classList.contains('collapsed'));
             };
             
             header.addEventListener('click', toggleSection);
-            
-            // 前回の状態を復元
-            const savedState = localStorage.getItem(`section-${section.querySelector('h2').textContent}`);
-            if (savedState === 'true') {
+
+            // 初期状態を設定（LocalStorageの状態は無視）
+            if (title === '設定') {
+                // 設定セクションは折りたたむ
                 content.classList.add('collapsed');
                 button.classList.add('collapsed');
+                localStorage.setItem(`section-${title}`, 'true');
+            } else {
+                // その他のセクションは展開
+                content.classList.remove('collapsed');
+                button.classList.remove('collapsed');
+                localStorage.setItem(`section-${title}`, 'false');
             }
         });
     }
