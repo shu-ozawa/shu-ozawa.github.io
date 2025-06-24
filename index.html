@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shu Ozawa - Portfolio & Works</title>
+    <meta name="description" content="Shu Ozawaのポートフォリオサイト。25時間時計やデザインシステム、研究ガイドなどの作品を紹介。">
+    <meta name="keywords" content="portfolio, design system, research, 25hours clock, web development">
+    <meta name="author" content="Shu Ozawa">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Shu Ozawa - Portfolio & Works">
+    <meta property="og:description" content="25時間時計やデザインシステム、研究ガイドなどの作品を紹介するポートフォリオサイト">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shu-ozawa.github.io">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="components/25hours-clock.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="#" class="nav-logo">
+                    <span class="logo-text">Shu Ozawa</span>
+                </a>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#works" class="nav-link">Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="articles/" class="nav-link">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/shu-ozawa" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="ダークモード切り替え">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開く">
+                        <span class="hamburger"></span>
+                        <span class="hamburger"></span>
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        <span class="hero-greeting">こんにちは、</span>
+                        <span class="hero-name">Shu Ozawa です</span>
+                    </h1>
+                    <p class="hero-description">
+                        ウェブ開発者・デザイナーとして、革新的なアイデアを形にしています。<br>
+                        時間の概念を再定義する25時間時計をはじめ、<br>
+                        デザインシステムや研究ガイドなどの作品を制作しています。
+                    </p>
+                    <div class="hero-actions">
+                        <a href="#works" class="btn btn-primary">作品を見る</a>
+                        <a href="https://github.com/shu-ozawa" class="btn btn-secondary" target="_blank" rel="noopener">
+                            GitHub
+                            <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="hero-visual">
+                    <div class="clock-showcase">
+                        <h3 class="clock-title">25時間時計</h3>
+                        <p class="clock-subtitle">時間の新しい表現方法</p>
+                        <div id="hero-clock" class="hero-clock-container">
+                            <div class="hero-clock-display">
+                                <div class="clock-pair">
+                                    <div class="clock-item">
+                                        <div class="clock-label">25時間</div>
+                                        <div class="clock-time custom-time">--:--:--</div>
+                                    </div>
+                                    <div class="clock-item">
+                                        <div class="clock-label">現在時刻</div>
+                                        <div class="clock-time real-time">--:--:--</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Works Section -->
+        <section id="works" class="works">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Works</h2>
+                    <p class="section-description">革新的なアイデアと技術を組み合わせた作品集</p>
+                </div>
+                
+                <div class="works-grid">
+                    <article class="work-card featured">
+                        <div class="work-image">
+                            <div class="work-preview" id="clock-preview">
+                                <div class="preview-clock-display">
+                                    <div class="preview-clock-item">
+                                        <div class="preview-clock-label">25時間</div>
+                                        <div class="preview-clock-time preview-custom-time">--:--:--</div>
+                                    </div>
+                                    <div class="preview-clock-item">
+                                        <div class="preview-clock-label">現在時刻</div>
+                                        <div class="preview-clock-time preview-real-time">--:--:--</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="work-content">
+                            <h3 class="work-title">25時間時計</h3>
+                            <p class="work-description">
+                                通常の24時間表示と25時間表示を同時に表示するウェブアプリケーション。
+                                時間の概念を再定義し、新しい時間表現の可能性を探求します。
+                            </p>
+                            <div class="work-tags">
+                                <span class="tag">JavaScript</span>
+                                <span class="tag">CSS</span>
+                                <span class="tag">Time Conversion</span>
+                            </div>
+                            <div class="work-actions">
+                                <a href="https://github.com/shu-ozawa/25hours" class="work-link" target="_blank" rel="noopener">
+                                    GitHub
+                                    <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Articles Section -->
+        <section id="articles" class="articles">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Articles & Guides</h2>
+                    <p class="section-description">デザインと研究に関する知識とガイドライン</p>
+                </div>
+                
+                <div class="articles-grid">
+                    <article class="article-card">
+                        <div class="article-category">Design</div>
+                        <h3 class="article-title">デザインシステム・ルールブック</h3>
+                        <p class="article-description">
+                            企画書・ドキュメント作成のための統一されたデザインシステムとルールブック。
+                            学術的で信頼性の高いドキュメント作成のガイドライン。
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-date">2025年6月</span>
+                            <span class="article-type">ガイドライン</span>
+                        </div>
+                        <a href="articles/design/" class="article-link">
+                            記事を読む
+                            <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+                            </svg>
+                        </a>
+                    </article>
+                    
+                    <article class="article-card">
+                        <div class="article-category">Research</div>
+                        <h3 class="article-title">アブストラクト作成ガイド</h3>
+                        <p class="article-description">
+                            研究計画書のアブストラクト作成に関する包括的なガイド。
+                            効果的なアブストラクトの書き方と構成方法を詳しく解説。
+                        </p>
+                        <div class="article-meta">
+                            <span class="article-date">2025年6月</span>
+                            <span class="article-type">ガイド</span>
+                        </div>
+                        <a href="articles/research/" class="article-link">
+                            記事を読む
+                            <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19"/>
+                            </svg>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 class="footer-title">Shu Ozawa</h3>
+                    <p class="footer-description">
+                        革新的なアイデアと技術で、新しい価値を創造します。
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="https://github.com/shu-ozawa" class="footer-link" target="_blank" rel="noopener">
+                        GitHub
+                    </a>
+                    <a href="https://github.com/shu-ozawa/25hours" class="footer-link" target="_blank" rel="noopener">
+                        25時間時計
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Shu Ozawa. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="components/25hours-clock.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+

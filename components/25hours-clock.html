@@ -1,0 +1,53 @@
+<!-- 25時間時計コンポーネント -->
+<div class="clocks-wrapper">
+    <div class="settings-container collapsible-section">
+        <div class="section-header">
+            <h3>設定</h3>
+            <button class="toggle-button">▼</button>
+        </div>
+        <div class="section-content">
+            <div class="time-settings">
+                <div class="time-range">
+                    <label for="start-time">開始時刻:</label>
+                    <input type="time" id="start-time" value="00:00">
+                </div>
+                <div class="time-range">
+                    <label for="end-time">終了時刻:</label>
+                    <input type="time" id="end-time" value="00:00">
+                </div>
+            </div>
+            <div class="custom-hours">
+                <label for="custom-hours">カスタム時間:</label>
+                <input type="number" id="custom-hours" min="24" max="48" value="25" step="0.5">
+                <span>時間</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clock-container collapsible-section">
+        <div class="section-header">
+            <h3 id="custom-time-title">カスタム時間表示</h3>
+            <button class="toggle-button">▼</button>
+        </div>
+        <div class="section-content">
+            <div class="clock">
+                <div class="time">00:00:00</div>
+                <div class="date">2024年1月1日</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="clock-container collapsible-section">
+        <div class="section-header">
+            <h3>実際の時間</h3>
+            <button class="toggle-button">▼</button>
+        </div>
+        <div class="section-content">
+            <div class="clock">
+                <div class="real-time">00:00:00</div>
+                <div class="date">2024年1月1日</div>
+            </div>
+        </div>
+    </div>
+</div>
+

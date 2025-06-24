@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アブストラクト作成ガイド | Shu Ozawa</title>
+    <meta name="description" content="研究計画書のアブストラクト作成に関する包括的なガイド">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../../assets/css/main.css">
+    <link rel="stylesheet" href="abstract-guide.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <a href="../../index.html" class="nav-logo">
+                    <span class="logo-text">Shu Ozawa</span>
+                </a>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="../../index.html" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../../index.html#works" class="nav-link">Works</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="../../index.html#articles" class="nav-link">Articles</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="https://github.com/shu-ozawa" class="nav-link" target="_blank" rel="noopener">GitHub</a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="ダークモード切り替え">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                    <button class="nav-toggle" id="nav-toggle" aria-label="メニューを開く">
+                        <span class="hamburger"></span>
+                        <span class="hamburger"></span>
+                        <span class="hamburger"></span>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Article Header -->
+        <section class="article-header">
+            <div class="container">
+                <nav class="breadcrumb">
+                    <a href="../../index.html">Home</a>
+                    <span class="breadcrumb-separator">></span>
+                    <a href="../../index.html#articles">Articles</a>
+                    <span class="breadcrumb-separator">></span>
+                    <span class="breadcrumb-current">Research</span>
+                </nav>
+                
+                <div class="article-hero">
+                    <div class="article-category-badge research">Research</div>
+                    <h1 class="article-title">アブストラクト作成ガイド</h1>
+                    <p class="article-subtitle">研究計画書のアブストラクト作成に関する包括的なガイド</p>
+                    <div class="article-meta">
+                        <span class="article-date">2025年6月24日</span>
+                        <span class="article-type">ガイド</span>
+                        <span class="article-version">バージョン 1.0</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Article Content -->
+        <section class="article-content">
+            <div class="container">
+                <div class="article-layout">
+                    <aside class="article-sidebar">
+                        <div class="sidebar-content">
+                            <h3>目次</h3>
+                            <nav class="article-nav" id="article-nav">
+                                <!-- 目次は動的に生成される -->
+                            </nav>
+                            
+                            <div class="reading-progress">
+                                <h4>読書進捗</h4>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text">0%</span>
+                            </div>
+                            
+                            <div class="search-box">
+                                <h4>検索</h4>
+                                <input type="text" id="search-input" placeholder="キーワードで検索..." />
+                                <div id="search-results" class="search-results"></div>
+                            </div>
+                        </div>
+                    </aside>
+                    
+                    <article class="article-main">
+                        <div class="article-actions">
+                            <button class="btn btn-primary" onclick="openFullArticle()">
+                                フル記事を表示
+                                <svg class="btn-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M7 17L17 7M17 7H7M17 7V17"/>
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div class="article-preview">
+                            <h2>概要</h2>
+                            <p>
+                                このガイドは、研究計画書のアブストラクト作成に関する包括的な指針を提供します。
+                                効果的なアブストラクトの書き方から構成方法まで、実践的なアドバイスを詳しく解説します。
+                            </p>
+                            
+                            <h3>主な機能</h3>
+                            <ul>
+                                <li><strong>目次とナビゲーション</strong> - 左サイドバーに自動生成される目次</li>
+                                <li><strong>検索機能</strong> - リアルタイム検索（3文字以上で自動検索）</li>
+                                <li><strong>読書進捗表示</strong> - スクロール位置に基づく進捗バー</li>
+                                <li><strong>レスポンシブデザイン</strong> - デスクトップ、タブレット、スマートフォンに対応</li>
+                                <li><strong>キーボードショートカット</strong> - Ctrl/Cmd + F または Ctrl/Cmd + K で検索</li>
+                            </ul>
+                            
+                            <h3>対象読者</h3>
+                            <p>
+                                このガイドは、研究計画書を作成する研究者、大学院生、学術関係者を対象としています。
+                                特に、効果的なアブストラクトの書き方を学びたい方や、
+                                研究提案の質を向上させたい方に有用です。
+                            </p>
+                            
+                            <h3>使用方法</h3>
+                            <p>
+                                左側の目次から興味のあるセクションに直接ジャンプできます。
+                                検索機能を使用して特定のトピックを素早く見つけることも可能です。
+                                読書進捗バーで現在の位置を確認しながら読み進めてください。
+                            </p>
+                            
+                            <div class="preview-note">
+                                <p><strong>注意:</strong> これは記事のプレビューです。完全な内容を読むには「フル記事を表示」ボタンをクリックしてください。</p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3 class="footer-title">Shu Ozawa</h3>
+                    <p class="footer-description">
+                        革新的なアイデアと技術で、新しい価値を創造します。
+                    </p>
+                </div>
+                
+                <div class="footer-links">
+                    <a href="https://github.com/shu-ozawa" class="footer-link" target="_blank" rel="noopener">
+                        GitHub
+                    </a>
+                    <a href="../../index.html" class="footer-link">
+                        ホーム
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="footer-copyright">
+                    © 2025 Shu Ozawa. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="../../assets/js/main.js"></script>
+    <script>
+        function openFullArticle() {
+            window.open('abstract-guide.html', '_blank');
+        }
+        
+        // Setup reading progress
+        function setupReadingProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const article = document.querySelector('.article-main');
+            
+            if (!progressFill || !progressText || !article) return;
+            
+            window.addEventListener('scroll', () => {
+                const articleTop = article.offsetTop;
+                const articleHeight = article.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollTop = window.pageYOffset;
+                
+                const progress = Math.min(
+                    Math.max((scrollTop - articleTop + windowHeight) / articleHeight, 0),
+                    1
+                );
+                
+                const percentage = Math.round(progress * 100);
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}%`;
+            });
+        }
+        
+        // Setup search functionality
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchResults = document.getElementById('search-results');
+            
+            if (!searchInput || !searchResults) return;
+            
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                
+                if (query.length < 3) {
+                    searchResults.innerHTML = '';
+                    searchResults.style.display = 'none';
+                    return;
+                }
+                
+                // Simple search simulation
+                const results = [
+                    { title: 'アブストラクトの基本構造', section: '基本構造' },
+                    { title: '効果的な書き方のコツ', section: '書き方のコツ' },
+                    { title: '研究目的の明確化', section: '研究目的' }
+                ].filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase()) ||
+                    item.section.toLowerCase().includes(query.toLowerCase())
+                );
+                
+                if (results.length > 0) {
+                    searchResults.innerHTML = results.map(result => 
+                        `<div class="search-result-item">
+                            <strong>${result.title}</strong>
+                            <span class="search-section">${result.section}</span>
+                        </div>`
+                    ).join('');
+                    searchResults.style.display = 'block';
+                } else {
+                    searchResults.innerHTML = '<div class="no-results">検索結果が見つかりません</div>';
+                    searchResults.style.display = 'block';
+                }
+            });
+            
+            // Hide search results when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+                    searchResults.style.display = 'none';
+                }
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupReadingProgress();
+            setupSearch();
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,333 @@
+/* Embedded 25-hour clock styles for portfolio integration */
+
+/* Hero section clock styles */
+.hero-clock-container .clock-pair {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.hero-clock-container .clock-item {
+    text-align: center;
+    min-width: 120px;
+}
+
+.hero-clock-container .clock-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted, #888);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-clock-container .clock-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--primary-color, #667eea);
+    margin-bottom: 0.25rem;
+}
+
+/* Work preview clock styles */
+.work-preview .preview-clock-display {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 200px;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+    border-radius: 8px;
+}
+
+.work-preview .preview-clock-item {
+    text-align: center;
+}
+
+.work-preview .preview-clock-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted, #888);
+    margin-bottom: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.work-preview .preview-clock-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color, #667eea);
+}
+
+/* Responsive design for embedded clocks */
+@media (max-width: 640px) {
+    .hero-clock-container .clock-pair {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .hero-clock-container .clock-time {
+        font-size: 1.5rem;
+    }
+    
+    .work-preview .preview-clock-time {
+        font-size: 1rem;
+    }
+}
+
+/* Original full clock styles (when used as standalone) */
+
+.clocks-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    max-width: 500px;
+    margin: 0 auto;
+    width: 95%;
+}
+
+.settings-container {
+    background-color: #2a2a2a;
+    padding: 0;
+    border-radius: 20px;
+    color: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.time-settings {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+}
+
+.time-range {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.time-range label {
+    white-space: normal;
+    font-size: 0.9rem;
+    max-width: 100%;
+}
+
+.custom-hours {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #3a3a3a;
+    flex-wrap: wrap;
+}
+
+.settings-container input {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #3a3a3a;
+    color: #fff;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.settings-container input[type="time"] {
+    width: 120px;
+    font-family: inherit;
+}
+
+.settings-container input[type="number"] {
+    width: 80px;
+}
+
+.settings-container input:focus {
+    outline: 2px solid #4a4a4a;
+}
+
+/* 折りたたみセクションのスタイル */
+.collapsible-section {
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    margin-top: 1rem; /* 上側のマージンを追加 */
+}
+
+/* 最初のcollapsible-sectionには上マージンを適用しない */
+.settings-container > .collapsible-section:first-child,
+.clock-container > .collapsible-section:first-child {
+    margin-top: 0;
+}
+
+/* 連続するcollapsibleセクション間の間隔を確保 */
+.settings-container .collapsible-section + .collapsible-section {
+    margin-top: 1rem;
+}
+
+/* section headerのスタイルを調整 - 上側のマージンを削除、下側のマージンのみ維持 */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.8rem;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    cursor: pointer;
+    min-height: 2.5rem;
+    margin-top: 0; /* 上側のマージンを削除 */
+    margin-bottom: 1rem; /* 下側のマージンは維持 */
+}
+
+.section-header h2 {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #ffffff;
+    font-weight: normal;
+    word-break: break-word;
+    flex: 1;
+    padding-right: 10px;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+}
+
+.toggle-button:hover {
+    opacity: 0.8;
+}
+
+.section-content {
+    transition: max-height 0.5s ease-out, padding 0.3s ease-out, opacity 0.3s ease;
+    max-height: 800px;
+    overflow: hidden;
+    opacity: 1;
+    padding: 1rem;
+    padding-top: 0; /* ヘッダーとコンテンツの間隔が適切になるように調整 */
+}
+
+.section-content.collapsed {
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+}
+
+.toggle-button.collapsed {
+    transform: rotate(-90deg);
+}
+
+.clock-container {
+    padding: 0;
+    background-color: #2a2a2a;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+.section-content {
+    padding: 1.5rem;
+}
+
+.clock-label {
+    font-size: 1rem;
+    color: #888;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    word-wrap: break-word;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .clocks-wrapper {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .time {
+        font-size: 3.5rem;
+    }
+}
+
+@media (max-width: 540px) {
+    .time-settings {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .custom-hours {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .time {
+        font-size: 3rem;
+    }
+    
+    .settings-container {
+        padding: 1rem;
+    }
+    
+    .clock-container .section-content {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 400px) {
+    .settings-container input[type="time"],
+    .settings-container input[type="number"] {
+        width: 100%;
+        margin: 0.25rem 0;
+    }
+    
+    .time {
+        font-size: 2.5rem;
+    }
+}
+
+.clock {
+    text-align: center;
+    color: #ffffff;
+}
+
+.time {
+    font-size: 4rem;
+    font-weight: 300;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+}
+
+.date {
+    font-size: 1.2rem;
+    color: #888;
+    word-wrap: break-word;
+}
+
+.clocks-wrapper > :last-child {
+    margin-bottom: 0;
+}
