@@ -84,64 +84,94 @@
         <!-- Article Content -->
         <section class="article-content">
             <div class="container">
-                <div class="article-body">
-                    <h2>概要</h2>
-                    <p>
-                        このデザインシステム・ルールブックは、学術的で信頼性の高い企画書・ドキュメント作成のための
-                        統一されたビジュアル言語とガイドラインを提供します。
-                    </p>
+                <div class="article-layout">
+                    <aside class="article-sidebar">
+                        <div class="sidebar-content">
+                            <h3>目次</h3>
+                            <nav class="article-nav" id="article-nav">
+                                <ul>
+                                    <li><a href="#overview">概要</a></li>
+                                    <li><a href="#features">主な特徴</a></li>
+                                    <li><a href="#target-audience">対象読者</a></li>
+                                    <li><a href="#design-components">デザインシステムの構成要素</a></li>
+                                    <li><a href="#color-palette">カラーパレット</a></li>
+                                    <li><a href="#typography">タイポグラフィ</a></li>
+                                    <li><a href="#layout-system">レイアウトシステム</a></li>
+                                    <li><a href="#implementation">実装ガイドライン</a></li>
+                                </ul>
+                            </nav>
+                            
+                            <div class="reading-progress">
+                                <h4>読書進捗</h4>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" id="progress-fill"></div>
+                                </div>
+                                <span class="progress-text" id="progress-text">0%</span>
+                            </div>
+                        </div>
+                    </aside>
                     
-                    <h3>主な特徴</h3>
-                    <ul>
-                        <li><strong>統一されたデザイン哲学</strong> - 一貫性のあるビジュアル表現</li>
-                        <li><strong>包括的なガイドライン</strong> - タイポグラフィ、カラー、レイアウトの詳細な指針</li>
-                        <li><strong>実践的なテンプレート</strong> - すぐに使える企画書テンプレート</li>
-                        <li><strong>アクセシビリティ対応</strong> - 誰もが読みやすいデザイン原則</li>
-                    </ul>
-                    
-                    <h3>対象読者</h3>
-                    <p>
-                        このガイドは、企画書やドキュメントを作成するすべての方を対象としています。
-                        特に、学術研究者、プロジェクトマネージャー、デザイナー、
-                        そして一貫性のあるドキュメント作成を目指す組織に有用です。
-                    </p>
+                    <article class="article-main">
+                        <div class="article-preview">
+                            <h2 id="overview">概要</h2>
+                            <p>
+                                このデザインシステム・ルールブックは、学術的で信頼性の高い企画書・ドキュメント作成のための
+                                統一されたビジュアル言語とガイドラインを提供します。
+                            </p>
+                            
+                            <h3 id="features">主な特徴</h3>
+                            <ul>
+                                <li><strong>統一されたデザイン哲学</strong> - 一貫性のあるビジュアル表現</li>
+                                <li><strong>包括的なガイドライン</strong> - タイポグラフィ、カラー、レイアウトの詳細な指針</li>
+                                <li><strong>実践的なテンプレート</strong> - すぐに使える企画書テンプレート</li>
+                                <li><strong>アクセシビリティ対応</strong> - 誰もが読みやすいデザイン原則</li>
+                            </ul>
+                            
+                            <h3 id="target-audience">対象読者</h3>
+                            <p>
+                                このガイドは、企画書やドキュメントを作成するすべての方を対象としています。
+                                特に、学術研究者、プロジェクトマネージャー、デザイナー、
+                                そして一貫性のあるドキュメント作成を目指す組織に有用です。
+                            </p>
 
-                    <h3>デザインシステムの構成要素</h3>
-                    
-                    <h4>1. カラーパレット</h4>
-                    <p>統一感のある色使いで、プロフェッショナルな印象を与えます。</p>
-                    <ul>
-                        <li>プライマリーカラー: 信頼感を表現する青系</li>
-                        <li>セカンダリーカラー: アクセントとしての紫系</li>
-                        <li>ニュートラルカラー: 可読性の高いグレー系</li>
-                    </ul>
+                            <h3 id="design-components">デザインシステムの構成要素</h3>
+                            
+                            <h4 id="color-palette">1. カラーパレット</h4>
+                            <p>統一感のある色使いで、プロフェッショナルな印象を与えます。</p>
+                            <ul>
+                                <li>プライマリーカラー: 信頼感を表現する青系</li>
+                                <li>セカンダリーカラー: アクセントとしての紫系</li>
+                                <li>ニュートラルカラー: 可読性の高いグレー系</li>
+                            </ul>
 
-                    <h4>2. タイポグラフィ</h4>
-                    <p>読みやすさを重視したフォント選択とサイズ設定。</p>
-                    <ul>
-                        <li>見出し: 階層を明確にする重みの違い</li>
-                        <li>本文: 長時間の読書でも疲れない行間</li>
-                        <li>キャプション: 補足情報を適切に配置</li>
-                    </ul>
+                            <h4 id="typography">2. タイポグラフィ</h4>
+                            <p>読みやすさを重視したフォント選択とサイズ設定。</p>
+                            <ul>
+                                <li>見出し: 階層を明確にする重みの違い</li>
+                                <li>本文: 長時間の読書でも疲れない行間</li>
+                                <li>キャプション: 補足情報を適切に配置</li>
+                            </ul>
 
-                    <h4>3. レイアウトシステム</h4>
-                    <p>情報を整理しやすいグリッドベースの設計。</p>
-                    <ul>
-                        <li>マージンとパディング: 一貫したスペーシング</li>
-                        <li>グリッドシステム: 柔軟なレイアウト対応</li>
-                        <li>レスポンシブ対応: あらゆるデバイスで最適表示</li>
-                    </ul>
+                            <h4 id="layout-system">3. レイアウトシステム</h4>
+                            <p>情報を整理しやすいグリッドベースの設計。</p>
+                            <ul>
+                                <li>マージンとパディング: 一貫したスペーシング</li>
+                                <li>グリッドシステム: 柔軟なレイアウト対応</li>
+                                <li>レスポンシブ対応: あらゆるデバイスで最適表示</li>
+                            </ul>
 
-                    <h3>実装ガイドライン</h3>
-                    <p>
-                        このデザインシステムを実装する際は、以下の原則に従ってください：
-                    </p>
-                    <ol>
-                        <li>一貫性を保つ - 全てのドキュメントで同じスタイルを使用</li>
-                        <li>読みやすさを優先 - 装飾よりも機能性を重視</li>
-                        <li>アクセシビリティを考慮 - 色覚異常や視覚障害に配慮</li>
-                        <li>メンテナンス性を確保 - 更新しやすい構造を維持</li>
-                    </ol>
+                            <h3 id="implementation">実装ガイドライン</h3>
+                            <p>
+                                このデザインシステムを実装する際は、以下の原則に従ってください：
+                            </p>
+                            <ol>
+                                <li>一貫性を保つ - 全てのドキュメントで同じスタイルを使用</li>
+                                <li>読みやすさを優先 - 装飾よりも機能性を重視</li>
+                                <li>アクセシビリティを考慮 - 色覚異常や視覚障害に配慮</li>
+                                <li>メンテナンス性を確保 - 更新しやすい構造を維持</li>
+                            </ol>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -178,6 +208,82 @@
 
     <!-- Scripts -->
     <script src="../../assets/js/main.js"></script>
+    <script>
+        // Setup reading progress
+        function setupReadingProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const article = document.querySelector('.article-main');
+            
+            if (!progressFill || !progressText || !article) return;
+            
+            window.addEventListener('scroll', () => {
+                const articleTop = article.offsetTop;
+                const articleHeight = article.offsetHeight;
+                const windowHeight = window.innerHeight;
+                const scrollTop = window.pageYOffset;
+                
+                const progress = Math.min(
+                    Math.max((scrollTop - articleTop + windowHeight) / articleHeight, 0),
+                    1
+                );
+                
+                const percentage = Math.round(progress * 100);
+                progressFill.style.width = `${percentage}%`;
+                progressText.textContent = `${percentage}%`;
+            });
+        }
+        
+        // Setup navigation highlighting
+        function setupNavHighlighting() {
+            const navLinks = document.querySelectorAll('.article-nav a');
+            const sections = document.querySelectorAll('[id]');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop - 100;
+                    if (window.pageYOffset >= sectionTop) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+        
+        // Smooth scrolling for navigation links
+        function setupSmoothScrolling() {
+            const navLinks = document.querySelectorAll('.article-nav a');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const targetId = link.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            setupReadingProgress();
+            setupNavHighlighting();
+            setupSmoothScrolling();
+        });
+    </script>
 </body>
 </html>
 

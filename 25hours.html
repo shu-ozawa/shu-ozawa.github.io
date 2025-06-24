@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>25時間時計 - 時間の新しい表現方法</title>
+    <meta name="description" content="25時間時計 - 通常の24時間表示と25時間表示を同時に表示するウェブアプリケーション。時間の概念を再定義し、新しい時間表現の可能性を探求します。">
+    <meta name="keywords" content="25時間時計, 時間変換, ウェブアプリ, JavaScript, 時間の概念">
+    <meta name="author" content="Shu Ozawa">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="25時間時計 - 時間の新しい表現方法">
+    <meta property="og:description" content="通常の24時間表示と25時間表示を同時に表示するウェブアプリケーション">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://shu-ozawa.github.io/25hours.html">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --text-muted: #666666;
+            --accent-color: #00ff00;
+            --border-color: #333333;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(26, 26, 26, 0.9);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: color 0.2s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-back svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Main Content */
+        .main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff, #b0b0b0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Clock Wrapper */
+        .clocks-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Settings Container */
+        .settings-container {
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .collapsible-section {
+            margin-bottom: 0;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem;
+            background-color: rgba(255, 255, 255, 0.02);
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header:hover {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .section-header h2 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .toggle-button {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.2s ease;
+        }
+
+        .toggle-button:hover {
+            color: var(--text-primary);
+        }
+
+        .toggle-button.collapsed {
+            transform: rotate(-90deg);
+        }
+
+        .section-content {
+            padding: 1.5rem;
+            transition: max-height 0.3s ease, opacity 0.3s ease;
+            max-height: 500px;
+            opacity: 1;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            padding: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        .time-settings {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .time-range {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .time-range label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .custom-hours {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .settings-container input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            text-align: center;
+            transition: border-color 0.2s ease, background-color 0.2s ease;
+        }
+
+        .settings-container input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .settings-container input[type="time"] {
+            width: 140px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .settings-container input[type="number"] {
+            width: 100px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Clock Container */
+        .clock-container {
+            background-color: var(--bg-secondary);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .clock {
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .clock-label {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 500;
+        }
+
+        .time {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .custom-time {
+            color: var(--accent-color);
+            text-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        }
+
+        .date {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .footer-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-link:hover {
+            color: var(--text-primary);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2.5rem;
+            }
+
+            .time {
+                font-size: 3rem;
+                letter-spacing: 2px;
+            }
+
+            .time-settings {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .custom-hours {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .clock {
+                padding: 2rem 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .time {
+                font-size: 2.5rem;
+                letter-spacing: 1px;
+            }
+
+            .settings-container input[type="time"],
+            .settings-container input[type="number"] {
+                width: 100%;
+                margin: 0.25rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav-container">
+                    <a href="index.html" class="nav-logo">Shu Ozawa</a>
+                    <a href="index.html" class="nav-back">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 12H5M12 19L5 12L12 5"/>
+                        </svg>
+                        ポートフォリオに戻る
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">25時間時計</h1>
+                <p class="page-description">
+                    通常の24時間表示と25時間表示を同時に表示するウェブアプリケーション。<br>
+                    時間の概念を再定義し、新しい時間表現の可能性を探求します。
+                </p>
+            </div>
+
+            <div class="clocks-wrapper">
+                <!-- Settings Section -->
+                <div class="settings-container">
+                    <div class="collapsible-section">
+                        <div class="section-header">
+                            <h2>設定</h2>
+                            <button class="toggle-button collapsed">▼</button>
+                        </div>
+                        <div class="section-content collapsed">
+                            <div class="time-settings">
+                                <div class="time-range">
+                                    <label for="start-time">開始時刻:</label>
+                                    <input type="time" id="start-time" value="00:00">
+                                </div>
+                                <div class="time-range">
+                                    <label for="end-time">終了時刻:</label>
+                                    <input type="time" id="end-time" value="00:00">
+                                </div>
+                            </div>
+                            <div class="custom-hours">
+                                <label for="custom-hours">時間制:</label>
+                                <input type="number" id="custom-hours" value="25" min="24" max="48" step="0.1">
+                                <span>時間</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Custom Time Clock -->
+                <div class="clock-container">
+                    <div class="collapsible-section">
+                        <div class="section-header">
+                            <h2 id="custom-time-title">25時間表示</h2>
+                            <button class="toggle-button">▼</button>
+                        </div>
+                        <div class="section-content">
+                            <div class="clock">
+                                <div class="clock-label">カスタム時間</div>
+                                <div class="time custom-time">--:--:--</div>
+                                <div class="date">----年--月--日</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real Time Clock -->
+                <div class="clock-container">
+                    <div class="collapsible-section">
+                        <div class="section-header">
+                            <h2>現在時刻</h2>
+                            <button class="toggle-button">▼</button>
+                        </div>
+                        <div class="section-content">
+                            <div class="clock">
+                                <div class="clock-label">標準時間</div>
+                                <div class="time real-time">--:--:--</div>
+                                <div class="date">----年--月--日</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p>© 2025 Shu Ozawa. All rights reserved. | 
+                   <a href="https://github.com/shu-ozawa/25hours" class="footer-link" target="_blank" rel="noopener">GitHub</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        class CustomHoursClock {
+            constructor(options = {}) {
+                this.timeElement = options.timeElement || document.querySelector('.custom-time');
+                this.realTimeElement = options.realTimeElement || document.querySelector('.real-time');
+                this.dateElements = options.dateElements || document.querySelectorAll('.date');
+                this.customHoursInput = options.customHoursInput || document.getElementById('custom-hours');
+                this.startTimeInput = options.startTimeInput || document.getElementById('start-time');
+                this.endTimeInput = options.endTimeInput || document.getElementById('end-time');
+                
+                // 初期設定
+                this.updateTimeRange();
+                this.updateConversionFactor();
+                
+                if (this.customHoursInput) {
+                    this.setupCollapsibleSections();
+                    
+                    // イベントリスナーの設定
+                    this.customHoursInput.addEventListener('input', () => {
+                        this.updateCustomTimeTitle();
+                    });
+
+                    this.customHoursInput.addEventListener('change', () => {
+                        this.updateConversionFactor();
+                    });
+
+                    this.updateCustomTimeTitle();
+
+                    this.startTimeInput.addEventListener('change', () => {
+                        this.updateTimeRange();
+                    });
+
+                    this.endTimeInput.addEventListener('change', () => {
+                        this.updateTimeRange();
+                    });
+                }
+            }
+
+            updateTimeRange() {
+                if (!this.startTimeInput || !this.endTimeInput) {
+                    this.startSeconds = 0;
+                    this.endSeconds = 24 * 3600;
+                    this.rangeSeconds = 24 * 3600;
+                    this.updateConversionFactor();
+                    return;
+                }
+                
+                const [startHours, startMinutes] = this.startTimeInput.value.split(':').map(Number);
+                const [endHours, endMinutes] = this.endTimeInput.value.split(':').map(Number);
+
+                this.startSeconds = startHours * 3600 + startMinutes * 60;
+                this.endSeconds = endHours * 3600 + endMinutes * 60;
+
+                if (this.endSeconds <= this.startSeconds) {
+                    this.endSeconds += 24 * 3600;
+                }
+
+                this.rangeSeconds = this.endSeconds - this.startSeconds;
+                this.updateConversionFactor();
+            }
+
+            updateConversionFactor() {
+                if (!this.customHoursInput) {
+                    this.conversionFactor = 1 / (this.rangeSeconds / 3600);
+                    return;
+                }
+                
+                const customHours = parseFloat(this.customHoursInput.value);
+                if (customHours >= 24 && customHours <= 48) {
+                    this.conversionFactor = (customHours - 24) / (this.rangeSeconds / 3600);
+                } else {
+                    this.customHoursInput.value = '25';
+                    this.conversionFactor = 1 / (this.rangeSeconds / 3600);
+                }
+            }
+
+            convert24toCustom(hours, minutes, seconds) {
+                const currentSeconds = hours * 3600 + minutes * 60 + seconds;
+                
+                let targetSeconds = currentSeconds;
+                if (currentSeconds < this.startSeconds) {
+                    targetSeconds += 24 * 3600;
+                }
+
+                if (targetSeconds >= this.startSeconds && targetSeconds <= this.endSeconds) {
+                    const relativeSeconds = targetSeconds - this.startSeconds;
+                    const convertedSeconds = relativeSeconds * (1 + this.conversionFactor);
+                    
+                    const baseHours = Math.floor(this.startSeconds / 3600);
+                    const totalSeconds = baseHours * 3600 + convertedSeconds;
+                    
+                    const convertedHours = Math.floor(totalSeconds / 3600);
+                    const remainingSeconds = totalSeconds % 3600;
+                    const convertedMinutes = Math.floor(remainingSeconds / 60);
+                    const finalSeconds = Math.floor(remainingSeconds % 60);
+                    
+                    return {
+                        hours: convertedHours,
+                        minutes: convertedMinutes,
+                        seconds: finalSeconds,
+                        inRange: true
+                    };
+                }
+                
+                return {
+                    hours,
+                    minutes,
+                    seconds,
+                    inRange: false
+                };
+            }
+
+            updateClock() {
+                const now = new Date();
+                const converted = this.convert24toCustom(
+                    now.getHours(),
+                    now.getMinutes(),
+                    now.getSeconds()
+                );
+
+                if (this.timeElement) {
+                    this.timeElement.textContent = `${String(converted.hours).padStart(2, '0')}:${
+                        String(converted.minutes).padStart(2, '0')}:${
+                        String(converted.seconds).padStart(2, '0')}`;
+                    
+                    this.timeElement.style.color = converted.inRange ? '#00ff00' : '#ffffff';
+                }
+
+                if (this.realTimeElement) {
+                    this.realTimeElement.textContent = `${String(now.getHours()).padStart(2, '0')}:${
+                        String(now.getMinutes()).padStart(2, '0')}:${
+                        String(now.getSeconds()).padStart(2, '0')}`;
+                }
+
+                if (this.dateElements) {
+                    const year = now.getFullYear();
+                    const month = now.getMonth() + 1;
+                    const date = now.getDate();
+                    this.dateElements.forEach(element => {
+                        element.textContent = `${year}年${month}月${date}日`;
+                    });
+                }
+            }
+
+            updateCustomTimeTitle() {
+                const titleElement = document.getElementById('custom-time-title');
+                if (titleElement) {
+                    const hours = parseFloat(this.customHoursInput.value);
+                    titleElement.textContent = `${hours}時間表示`;
+                }
+            }
+
+            setupCollapsibleSections() {
+                const sections = document.querySelectorAll('.collapsible-section');
+                
+                sections.forEach(section => {
+                    const header = section.querySelector('.section-header');
+                    const content = section.querySelector('.section-content');
+                    const button = section.querySelector('.toggle-button');
+                    const title = section.querySelector('h2').textContent;
+                    
+                    const toggleSection = () => {
+                        content.classList.toggle('collapsed');
+                        button.classList.toggle('collapsed');
+                        localStorage.setItem(`section-${title}`, content.classList.contains('collapsed'));
+                    };
+                    
+                    header.addEventListener('click', toggleSection);
+
+                    if (title === '設定') {
+                        content.classList.add('collapsed');
+                        button.classList.add('collapsed');
+                        localStorage.setItem(`section-${title}`, 'true');
+                    } else {
+                        content.classList.remove('collapsed');
+                        button.classList.remove('collapsed');
+                        localStorage.setItem(`section-${title}`, 'false');
+                    }
+                });
+            }
+
+            start() {
+                this.updateClock();
+                setInterval(() => this.updateClock(), 1000);
+            }
+        }
+
+        // Initialize clock when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            const clock = new CustomHoursClock();
+            clock.start();
+        });
+    </script>
+</body>
+</html>

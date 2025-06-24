@@ -1,3 +1,37 @@
+/* Hero Clock Link Styles */
+.hero-clock-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  cursor: pointer;
+}
+
+.hero-clock-link:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+}
+
+.hero-clock-link:hover .hero-clock-container {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.2);
+}
+
+/* Work Preview Clock Link */
+.work-image-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.work-image {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.work-image-link:hover .work-image {
+  transform: scale(1.02);
+}
+
 /* CSS Variables */
 :root {
   /* Colors */
