@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HME Viewer - 階層的方法論探索手法</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --purple: #9b59b6;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --gray: #95a5a6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 10px;
+        }
+
+        .app {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            height: calc(100vh - 20px);
+        }
+
+        .sidebar {
+            background: var(--dark);
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            padding: 20px;
+            background: rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            opacity: 0.8;
+            font-size: 14px;
+        }
+
+        .input-section {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .file-input {
+            margin-bottom: 15px;
+        }
+
+        .file-input input[type="file"] {
+            display: none;
+        }
+
+        .file-label {
+            display: block;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s;
+        }
+
+        .file-label:hover {
+            background: #2980b9;
+            transform: translateY(-1px);
+        }
+
+        .yaml-editor {
+            flex: 1;
+            border: none;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Monaco', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: none;
+            outline: none;
+        }
+
+        .yaml-editor::placeholder {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .toolbar {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .stats {
+            display: flex;
+            gap: 15px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .stat-label {
+            font-size: 11px;
+            color: var(--gray);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .view-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .icon-btn {
+            padding: 8px;
+            border: none;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: all 0.2s;
+        }
+
+        .icon-btn:hover, .icon-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .tree-container {
+            flex: 1;
+            overflow: auto;
+            padding: 20px;
+        }
+
+        .project-info {
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .tree-node {
+            margin: 5px 0;
+            border-radius: 6px;
+            overflow: hidden;
+            background: white;
+            border: 1px solid #e9ecef;
+        }
+
+        .node-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .node-header:hover {
+            background: #f8f9fa;
+        }
+
+        .node-toggle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--gray);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 10px;
+            transition: all 0.2s;
+        }
+
+        .node-name {
+            font-weight: 600;
+            color: var(--dark);
+            margin-right: 12px;
+            flex: 1;
+        }
+
+        .badges {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-known { background: var(--success); color: white; }
+        .badge-emerging { background: var(--warning); color: white; }
+        .badge-unknown { background: var(--danger); color: white; }
+        .badge-custom { background: var(--purple); color: white; }
+
+        .badge-todo { background: #6c757d; color: white; }
+        .badge-doing { background: var(--primary); color: white; }
+        .badge-done { background: var(--success); color: white; }
+        .badge-skip { background: var(--danger); color: white; }
+
+        .node-meta {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .children {
+            border-left: 3px solid #e9ecef;
+            margin-left: 20px;
+            padding-left: 15px;
+            transition: all 0.3s;
+        }
+
+        .children.collapsed {
+            display: none;
+        }
+
+        .node-details {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-top: 1px solid #e9ecef;
+            font-size: 13px;
+        }
+
+        .detail-item {
+            margin: 4px 0;
+            display: flex;
+            align-items: start;
+            gap: 8px;
+        }
+
+        .detail-icon {
+            color: var(--gray);
+            width: 16px;
+            margin-top: 2px;
+        }
+
+        .error {
+            background: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 20px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--gray);
+        }
+
+        .empty-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            opacity: 0.5;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .app {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
+            
+            .sidebar {
+                max-height: 50vh;
+            }
+            
+            .stats {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+        }
+
+        /* 印刷対応 */
+        @media print {
+            .sidebar, .toolbar { display: none; }
+            .app { display: block; }
+            .tree-container { padding: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="app">
+        <div class="sidebar">
+            <div class="header">
+                <div class="logo">🌳 HME Viewer</div>
+                <div class="subtitle">階層的方法論探索手法</div>
+            </div>
+            
+            <div class="input-section">
+                <div class="file-input">
+                    <input type="file" id="fileInput" accept=".yaml,.yml">
+                    <label for="fileInput" class="file-label">
+                        <i class="fas fa-upload"></i> YAMLファイルを選択
+                    </label>
+                </div>
+                
+                <textarea 
+                    id="yamlEditor" 
+                    class="yaml-editor" 
+                    placeholder="HME YAMLを入力するか、ファイルを選択してください...">project:
+  title: "AIチャットボット開発"
+  goal: "自然言語処理による高精度対話システム"
+
+methods:
+  data_preparation:
+    label: "known"
+    status: "done"
+    type: "sequential"
+    description: "対話データの準備と前処理"
+    
+    submethods:
+      data_collection:
+        label: "known"
+        status: "done"
+        performance: 0.9
+        notes: "公開データセット + 独自収集"
+        
+      preprocessing:
+        label: "known" 
+        status: "done"
+        notes: "トークン化、正規化実装済み"
+        
+      augmentation:
+        label: "emerging"
+        status: "todo"
+        description: "Back-translation によるデータ拡張"
+
+  model_development:
+    label: "known"
+    status: "doing"
+    type: "exclusive"
+    
+    submethods:
+      transformer_based:
+        label: "known"
+        status: "doing"
+        confidence: "high"
+        notes: "GPT-4ベースのfine-tuning"
+        
+      retrieval_augmented:
+        label: "emerging"
+        status: "todo"
+        description: "RAG (Retrieval-Augmented Generation)"
+        
+      custom_architecture:
+        label: "custom"
+        status: "todo"
+        description: "メモリ機構付き対話モデル"
+
+  evaluation:
+    label: "known"
+    status: "todo"
+    type: "parallel"
+    
+    submethods:
+      automatic_metrics:
+        label: "known"
+        status: "todo"
+        notes: "BLEU, ROUGE, BERTScore"
+        
+      human_evaluation:
+        label: "known"
+        status: "todo"
+        notes: "対話品質の主観評価"
+        
+      business_metrics:
+        label: "custom"
+        status: "todo"
+        description: "ユーザー満足度、解決率"</textarea>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="parseYaml()">
+                        <i class="fas fa-sync-alt"></i> 更新
+                    </button>
+                    <button class="btn btn-success" onclick="saveYaml()">
+                        <i class="fas fa-save"></i> 保存
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="toolbar">
+                <div class="stats" id="statsDisplay">
+                    <!-- 統計情報がここに表示される -->
+                </div>
+                
+                <div class="view-controls">
+                    <button class="icon-btn" onclick="expandAll()" title="全て展開">
+                        <i class="fas fa-expand-arrows-alt"></i>
+                    </button>
+                    <button class="icon-btn" onclick="collapseAll()" title="全て折りたたみ">
+                        <i class="fas fa-compress-arrows-alt"></i>
+                    </button>
+                    <button class="icon-btn" onclick="exportHtml()" title="HTMLエクスポート">
+                        <i class="fas fa-download"></i>
+                    </button>
+                    <button class="icon-btn" onclick="window.print()" title="印刷">
+                        <i class="fas fa-print"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="tree-container" id="treeContainer">
+                <div class="empty-state">
+                    <div class="empty-icon">📝</div>
+                    <h3>YAMLを入力してください</h3>
+                    <p>左側のエディタにHME YAMLを入力するか、ファイルを選択してください</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="hme.js"></script>
+</body>
+</html>
